@@ -34,7 +34,7 @@ The repository also includes pre-generated comparative PDF reports, example Exce
   - `YANBOLU_HES_birlesik_2024.csv`
   - `EBER_RES_birlesik_2024.csv`
   - `MASLAKTEPE_RES_birlesik_2024.csv`
-- `Gain Enerji Intern Analyst Case Study_2025/GAIN ENERGY/pp_list.json`: Plant list used by the app (see Notes)
+  
 
 ### Data Sources (from code)
 The application uses EPİAŞ Şeffaflık Platform endpoints via authenticated POST requests with the TGT token:
@@ -80,7 +80,7 @@ Sheets and columns:
   - Additional monthly KPIs computed in code: `Tahmin Doğruluğu (%), Maliyet Asimetrisi (Poz/Neg), Kapasite Faktörü (%), En Maliyetli 5 Gün (TL), Top 5 Gün DM Payı (%), Gelir Payı (%), Yıllık Pozitif Deng. Payı (%), Yıllık Negatif Deng. Payı (%), Üretim Saati (saat), Üretim Saat Payı (%), Üretim Payı (%)`
 
 ### Notes
-- Plant list JSON: The app searches for `pp_list.json` in multiple candidate paths, including `Gain Enerji Intern Analyst Case Study_2025/GAIN ENERGY/pp_list.json`, `GAIN ENERGY/pp_list.json`, and the repository root as `pp_list.json`. Ensure at least one of these paths exists in your local clone.
+- Plant list JSON: The app searches for `pp_list.json` in several candidate locations (including the repository root). Ensure `pp_list.json` is available at one of the searched paths before running the app.
 - TGT cache: The app can optionally cache the TGT to a JSON file for ~2 hours. The current code uses an absolute `WORKSPACE_DIR` and writes `.tgt_cache.json` there. If you run the app from a different location, you may adjust `WORKSPACE_DIR` in `kod/streamlit/streamlit_app.py` or simply use the TGT input without caching.
 - Comparisons require both plants to be of the same type (HES with HES, RES with RES). The app enforces this in the UI.
 
