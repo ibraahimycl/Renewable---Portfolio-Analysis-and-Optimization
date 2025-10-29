@@ -79,6 +79,14 @@ Sheets and columns:
   - Monthly totals: `Gerçekleşen Üretim (MWh), Dengesizlik Miktarı (MWh), GÖP Geliri (TL), Dengesizlik Tutarı (TL), Toplam Gelir (TL), Birim Gelir (TL/MWh), Dengesizlik Maliyeti (TL), Birim Deng Mal. (TL/MWh)`
   - Additional monthly KPIs computed in code: `Tahmin Doğruluğu (%), Maliyet Asimetrisi (Poz/Neg), Kapasite Faktörü (%), En Maliyetli 5 Gün (TL), Top 5 Gün DM Payı (%), Gelir Payı (%), Yıllık Pozitif Deng. Payı (%), Yıllık Negatif Deng. Payı (%), Üretim Saati (saat), Üretim Saat Payı (%), Üretim Payı (%)`
 
+### Strategy and Optimization Approach
+- Amaç: En riskli ve maliyetli zaman dilimlerini (ör. yüksek dengesizlik maliyeti oluşan saatler/günler) belirleyip, tahmini üretim (KGÜP) üzerinde parametre bazlı ayarlamalar yaparak beklenen net geliri iyileştirmek.
+- Yaklaşım (analizden türetilir):
+  - En maliyetli 5 gün ve aylık dengesizlik maliyeti dağılımlarını kullanarak “risk pencereleri” tanımlanır (saat ve ay bazında yoğunlaşan dönemler).
+  - Bu pencereler için ayarlanabilir parametreler belirlenir (ör. `adjustment_factor` ve saat aralığı). Parametre, KGÜP üzerinde küçük ölçekli oynama senaryoları (yukarı/aşağı) üretmek için kullanılır.
+  - Senaryo çıktıları, hesaplanan `Dengesizlik_Tutarı`, `Net_Gelir` ve `Birim_DM` metrikleri üzerinden kıyaslanır. Hedef, dengesizlik maliyetini düşürürken toplam geliri maksimize edecek parametre kombinasyonunu bulmaktır.
+- Uygulama notu: Bu, karar-destek amaçlı bir senaryolama yaklaşımıdır. Operasyonel, piyasa ve mevzuat gereklilikleri mutlaka gözetilmelidir.
+
 ### Notes
 - Plant list JSON: The app searches for `pp_list.json` in several candidate locations (including the repository root). Ensure `pp_list.json` is available at one of the searched paths before running the app.
 - TGT cache: The app can optionally cache the TGT to a JSON file for ~2 hours. The current code uses an absolute `WORKSPACE_DIR` and writes `.tgt_cache.json` there. If you run the app from a different location, you may adjust `WORKSPACE_DIR` in `kod/streamlit/streamlit_app.py` or simply use the TGT input without caching.
