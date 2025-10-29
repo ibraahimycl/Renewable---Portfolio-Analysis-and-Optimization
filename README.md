@@ -80,12 +80,12 @@ Sheets and columns:
   - Additional monthly KPIs computed in code: `Tahmin Doğruluğu (%), Maliyet Asimetrisi (Poz/Neg), Kapasite Faktörü (%), En Maliyetli 5 Gün (TL), Top 5 Gün DM Payı (%), Gelir Payı (%), Yıllık Pozitif Deng. Payı (%), Yıllık Negatif Deng. Payı (%), Üretim Saati (saat), Üretim Saat Payı (%), Üretim Payı (%)`
 
 ### Strategy and Optimization Approach
-- Amaç: En riskli ve maliyetli zaman dilimlerini (ör. yüksek dengesizlik maliyeti oluşan saatler/günler) belirleyip, tahmini üretim (KGÜP) üzerinde parametre bazlı ayarlamalar yaparak beklenen net geliri iyileştirmek.
-- Yaklaşım (analizden türetilir):
-  - En maliyetli 5 gün ve aylık dengesizlik maliyeti dağılımlarını kullanarak “risk pencereleri” tanımlanır (saat ve ay bazında yoğunlaşan dönemler).
-  - Bu pencereler için ayarlanabilir parametreler belirlenir (ör. `adjustment_factor` ve saat aralığı). Parametre, KGÜP üzerinde küçük ölçekli oynama senaryoları (yukarı/aşağı) üretmek için kullanılır.
-  - Senaryo çıktıları, hesaplanan `Dengesizlik_Tutarı`, `Net_Gelir` ve `Birim_DM` metrikleri üzerinden kıyaslanır. Hedef, dengesizlik maliyetini düşürürken toplam geliri maksimize edecek parametre kombinasyonunu bulmaktır.
-- Uygulama notu: Bu, karar-destek amaçlı bir senaryolama yaklaşımıdır. Operasyonel, piyasa ve mevzuat gereklilikleri mutlaka gözetilmelidir.
+ - Objective: Identify the riskiest and most costly time windows (e.g., hours/days with elevated imbalance costs) and improve expected net revenue by applying parameterized adjustments to the forecasted production (KGÜP).
+ - Approach (derived from the analysis):
+   - Use the top-5 costliest days and the monthly distribution of imbalance costs to define “risk windows” (periods concentrated by hour and month).
+   - Configure tunable parameters for these windows (e.g., an `adjustment_factor` and hour ranges). The parameter generates small up/down scenarios on KGÜP.
+   - Evaluate scenarios by comparing the computed `Dengesizlik_Tutarı` (Imbalance Amount), `Net_Gelir` (Net Revenue), and `Birim_DM` (Unit Imbalance Cost). The goal is to find parameter combinations that reduce imbalance cost while maximizing total revenue.
+ - Note: This is a decision-support scenario approach. Any operational, market, and regulatory requirements must be respected.
 
 ### Notes
 - Plant list JSON: The app searches for `pp_list.json` in several candidate locations (including the repository root). Ensure `pp_list.json` is available at one of the searched paths before running the app.
